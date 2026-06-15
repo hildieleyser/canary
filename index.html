@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Canary Labs · Near-Nose Sensing for Harmful Air Exposure</title>
+<title>Canary Labs · Olfaction as a Hidden-State Interface</title>
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=3">
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png?v=3">
 <link rel="icon" type="image/svg+xml" href="favicon.svg?v=3">
@@ -58,7 +58,6 @@
 
   a { color: var(--ink); text-decoration: none; }
 
-  /* eyebrow / micro labels */
   .eyebrow {
     font-size: 11.5px;
     letter-spacing: 0.15em;
@@ -92,21 +91,17 @@
   }
   .topbar-inner {
     max-width: 1120px; margin: 0 auto;
-    padding: 16px 36px;
+    padding: 14px 36px;
     display: flex; align-items: center; justify-content: space-between;
     gap: 18px;
   }
-  .brand {
-    display: flex; align-items: center; gap: 11px;
-  }
+  .brand { display: flex; align-items: center; gap: 11px; cursor: pointer; background: none; border: none; padding: 0; }
   .brand .logo-mark { height: 38px; width: auto; display: block; flex: none; }
   .brand .logo {
     font-family: "Iowan Old Style","Charter","Palatino Linotype",Georgia,serif;
-    font-size: 23px; font-weight: 600; letter-spacing: 0.02em;
+    font-size: 23px; font-weight: 600; letter-spacing: 0.02em; color: var(--ink);
   }
-  .brand .logo::after {
-    content: "."; color: var(--gold);
-  }
+  .brand .logo::after { content: "."; color: var(--gold); }
   .brand .tagline {
     font-family: "SFMono-Regular","SF Mono","JetBrains Mono","IBM Plex Mono",ui-monospace,Menlo,monospace;
     font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
@@ -116,73 +111,83 @@
   nav.menu a {
     font-family: "SFMono-Regular","SF Mono","JetBrains Mono","IBM Plex Mono",ui-monospace,Menlo,monospace;
     font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase;
-    color: var(--ink-soft); font-weight: 500;
+    color: var(--ink-soft); font-weight: 500; cursor: pointer;
   }
   nav.menu a:hover { color: var(--gold); }
+  nav.menu a.is-active { color: var(--gold); }
 
   /* hero */
-  .hero { padding: 96px 0 78px; }
+  .hero { padding: 92px 0 70px; }
+  .hero-inner { display: flex; align-items: center; gap: clamp(34px, 6vw, 84px); }
+  .hero-copy { flex: 1 1 auto; min-width: 0; }
+  .hero-figure { flex: 0 0 auto; width: clamp(200px, 26vw, 330px); margin: 0; }
+  .hero-figure img { width: 100%; height: auto; display: block; }
   .hero .kicker {
     font-size: 11.5px; letter-spacing: 0.16em; text-transform: uppercase;
-    color: var(--gold); font-weight: 600; margin: 0 0 30px;
+    color: var(--gold); font-weight: 600; margin: 0 0 28px;
   }
   .hero h1 {
-    font-size: clamp(52px, 11vw, 132px);
-    line-height: 0.92;
+    font-size: clamp(48px, 9vw, 104px);
+    line-height: 0.94;
     letter-spacing: -0.015em;
     font-weight: 500;
     margin: 0 0 8px;
   }
   .hero h1 em { font-style: italic; font-weight: 400; }
   .hero .full-title {
-    font-size: clamp(20px, 2.4vw, 27px);
+    font-size: clamp(19px, 2.3vw, 26px);
     font-weight: 500;
     letter-spacing: -0.01em;
-    margin: 26px 0 10px;
-    max-width: 760px;
+    margin: 24px 0 10px;
+    max-width: 640px;
     line-height: 1.25;
   }
-  .hero .sub {
-    font-size: 19px;
-    color: var(--ink-soft);
-    max-width: 640px;
-    margin: 0 0 30px;
-    line-height: 1.5;
+  .hero p.body { max-width: 620px; color: var(--ink-soft); font-size: 17px; margin: 0; }
+
+  /* domain selector (the hub) */
+  .domain-select {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1px; background: var(--line); border: 1px solid var(--line);
+    margin-top: 52px;
   }
-  .hero p.body { max-width: 620px; color: var(--ink-soft); font-size: 17px; }
-  .hero-inner { display: flex; align-items: center; gap: clamp(34px, 6vw, 84px); }
-  .hero-copy { flex: 1 1 auto; min-width: 0; }
-  .hero-figure { flex: 0 0 auto; width: clamp(210px, 27vw, 350px); margin: 0; }
-  .hero-figure img { width: 100%; height: auto; display: block; }
-  .hero .coal {
-    margin-top: 26px;
-    font-size: 14.5px;
-    color: var(--muted);
-    border-left: 2px solid var(--gold-bright);
-    padding-left: 16px;
-    max-width: 520px;
-    line-height: 1.55;
+  .domain-card {
+    text-align: left; background: var(--panel); border: none; cursor: pointer;
+    padding: 32px 30px 28px; font: inherit; color: var(--ink);
+    display: flex; flex-direction: column; gap: 0;
+    border-top: 3px solid transparent; transition: background 0.15s ease;
   }
-  .tags { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 38px; }
-  .tag {
-    font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
-    padding: 9px 16px; border: 1px solid var(--line);
-    border-radius: 100px; color: var(--ink-soft); font-weight: 600;
-    background: var(--paper-2);
+  .domain-card:hover { background: var(--paper-2); }
+  .domain-card.is-active { background: var(--paper-2); border-top-color: var(--gold-bright); }
+  .domain-card .dnum {
+    font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--muted); font-weight: 600; display: flex; align-items: center; gap: 9px;
   }
-  .tag::before {
-    content: ""; display: inline-block; width: 6px; height: 6px;
-    border-radius: 50%; margin-right: 9px; vertical-align: middle;
+  .domain-card .dot { width: 9px; height: 9px; border-radius: 50%; }
+  .domain-card[data-target="global-health"] .dot { background: var(--gold-bright); }
+  .domain-card[data-target="animal-welfare"] .dot { background: var(--sage); }
+  .domain-card[data-target="ai-safety"] .dot { background: var(--slate); }
+  .domain-card .dc-title {
+    font-family: "Iowan Old Style","Charter","Palatino Linotype",Georgia,serif;
+    font-size: 25px; font-weight: 500; letter-spacing: -0.01em; margin: 15px 0 9px;
   }
-  .tag.t1::before { background: var(--clay); }
-  .tag.t2::before { background: var(--slate); }
-  .tag.t3::before { background: var(--gold-bright); }
+  .domain-card .dc-desc { font-size: 14.5px; color: var(--ink-soft); margin: 0; }
+  .domain-card .go {
+    margin-top: 18px; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--gold); font-weight: 700;
+  }
+  .domain-card .go::after { content: " \2192"; }
+
+  .hub-hint {
+    text-align: center; color: var(--muted); font-size: 13px;
+    letter-spacing: 0.04em; padding: 30px 0 0;
+  }
+  body:not(.is-hub) .hub-hint { display: none; }
 
   /* hero image band */
   .hero-band { position: relative; }
   .hero-band img {
     display: block; width: 100%;
-    height: clamp(320px, 56vh, 600px);
+    height: clamp(300px, 50vh, 540px);
     object-fit: cover; object-position: 60% 42%;
   }
   .hero-band figcaption {
@@ -202,109 +207,106 @@
     color: rgba(251,247,236,0.8); font-weight: 500; text-align: right;
   }
 
-  /* interior full-bleed image bands */
-  .band { position: relative; }
-  .band img {
-    display: block; width: 100%;
-    height: clamp(240px, 40vh, 420px);
-    object-fit: cover; object-position: center;
-  }
-  .band figcaption {
-    position: absolute; left: 0; right: 0; bottom: 0;
-    display: flex; justify-content: space-between; align-items: flex-end; gap: 20px;
-    padding: 20px 36px;
-    background: linear-gradient(to top, rgba(33,28,16,0.58), rgba(33,28,16,0));
-  }
-  .band .cap-title {
-    font-family: "Iowan Old Style","Charter","Palatino Linotype",Georgia,serif;
-    color: #fbf7ec; font-size: clamp(18px, 2.4vw, 26px); font-weight: 600;
-    line-height: 1.15; margin: 0; max-width: 72%;
-  }
-  .band .cap-meta {
-    font-family: "SFMono-Regular","SF Mono","JetBrains Mono","IBM Plex Mono",ui-monospace,Menlo,monospace;
-    font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
-    color: rgba(251,247,236,0.8); font-weight: 500; text-align: right;
-  }
+  /* domain panels */
+  .domain-panel { display: none; }
+  .domain-panel.is-active { display: block; }
 
-  /* contained photo with caption */
-  .photo { border: 1px solid var(--line); background: var(--panel); padding: 14px; margin-top: 30px; }
-  .photo img { display: block; width: 100%; height: auto; }
+  .domain-head { padding: 70px 0 0; }
+  .domain-head .wrap { display: flex; justify-content: space-between; align-items: flex-end; gap: 30px; flex-wrap: wrap; }
+  .domain-head .dh-left { max-width: 760px; }
+  .domain-head .dh-kick {
+    font-size: 11.5px; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 600;
+    margin: 0 0 18px; display: flex; align-items: center; gap: 12px;
+  }
+  .domain-head .dh-kick .dot { width: 10px; height: 10px; border-radius: 50%; }
+  .dh-global .dh-kick { color: var(--gold); } .dh-global .dh-kick .dot { background: var(--gold-bright); }
+  .dh-animal .dh-kick { color: var(--sage); } .dh-animal .dh-kick .dot { background: var(--sage); }
+  .dh-ai .dh-kick { color: var(--slate); } .dh-ai .dh-kick .dot { background: var(--slate); }
+  .domain-head h2.dh-title {
+    font-size: clamp(36px, 6vw, 64px); line-height: 1.0; font-weight: 500;
+    letter-spacing: -0.02em; margin: 0;
+  }
+  .domain-head .dh-claim {
+    font-size: clamp(17px, 2vw, 21px); color: var(--ink-soft); margin: 22px 0 0;
+    max-width: 620px; line-height: 1.4;
+  }
+  .domain-head .dh-idx { font-family: "Iowan Old Style","Charter","Palatino Linotype",Georgia,serif; font-size: 54px; color: var(--line); font-weight: 500; }
 
-  /* section frame */
-  section { padding: 84px 0; border-top: 1px solid var(--line); }
-  .sec-head { display: flex; justify-content: space-between; align-items: baseline; gap: 30px; flex-wrap: wrap; margin-bottom: 44px; }
+  /* generic section frame */
+  section.block { padding: 66px 0; }
+  section.block.bt { border-top: 1px solid var(--line); }
+  .sec-head { display: flex; justify-content: space-between; align-items: baseline; gap: 30px; flex-wrap: wrap; margin-bottom: 40px; }
   .sec-head .left { max-width: 760px; }
-  h2 {
-    font-size: clamp(30px, 4.4vw, 46px);
-    line-height: 1.05;
-    font-weight: 500;
-    letter-spacing: -0.015em;
-    margin: 0;
-  }
+  h2 { font-size: clamp(28px, 4vw, 42px); line-height: 1.05; font-weight: 500; letter-spacing: -0.015em; margin: 0; }
   h2 em { font-style: italic; }
   .sec-head p.dek { color: var(--ink-soft); margin: 18px 0 0; font-size: 17px; max-width: 640px; }
   p { margin: 0 0 18px; }
   .lead { font-size: 18px; color: var(--ink-soft); }
 
-  /* two cards */
   .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--line); border: 1px solid var(--line); }
-  .panel { background: var(--panel); padding: 40px 38px; }
-  .panel .pk {
-    font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
-    color: var(--muted); font-weight: 600; margin: 0 0 18px;
-    display: flex; align-items: center; gap: 10px;
-  }
+  .panel { background: var(--panel); padding: 38px 36px; }
+  .panel .pk { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); font-weight: 600; margin: 0 0 18px; display: flex; align-items: center; gap: 10px; }
   .panel .pk .dot { width: 8px; height: 8px; border-radius: 50%; }
-  .panel.neuro .dot { background: var(--clay); }
-  .panel.applied .dot { background: var(--slate); }
-  .panel h3 { font-family: "Iowan Old Style","Charter","Palatino Linotype",Georgia,serif; font-size: 28px; font-weight: 500; margin: 0 0 16px; letter-spacing: -0.01em; }
+  .panel h3 { font-family: "Iowan Old Style","Charter","Palatino Linotype",Georgia,serif; font-size: 26px; font-weight: 500; margin: 0 0 14px; letter-spacing: -0.01em; }
   .panel p { color: var(--ink-soft); font-size: 15.5px; }
   .panel p:last-child { margin-bottom: 0; }
 
-  /* exposure / first case */
   .stat-row { display: grid; grid-template-columns: 1.1fr 1fr; gap: 48px; align-items: center; }
   .bigstat { border-top: 2px solid var(--ink); padding-top: 22px; }
-  .bigstat .num { font-family: "Iowan Old Style","Charter","Palatino Linotype",Georgia,serif; font-size: clamp(64px, 12vw, 128px); line-height: 0.9; font-weight: 500; letter-spacing: -0.02em; }
+  .bigstat .num { font-family: "Iowan Old Style","Charter","Palatino Linotype",Georgia,serif; font-size: clamp(64px, 12vw, 120px); line-height: 0.9; font-weight: 500; letter-spacing: -0.02em; }
   .bigstat .num span { color: var(--gold); }
   .bigstat .cap { font-size: 14px; color: var(--ink-soft); margin-top: 16px; max-width: 360px; }
   .bigstat .src { font-size: 11px; letter-spacing: 0.08em; color: var(--muted); margin-top: 10px; text-transform: uppercase; }
   .chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 6px 0 22px; }
   .chips span { font-size: 12px; letter-spacing: 0.04em; padding: 6px 13px; background: var(--clay-bg); color: var(--clay); border-radius: 100px; }
+  .chips.slate span { background: var(--slate-bg); color: var(--slate); }
+  .chips.sage span { background: var(--sage-bg); color: var(--sage); }
 
-  /* measurement compare */
   .compare { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); }
   .compare .item { background: var(--panel); padding: 30px 26px; }
   .compare .dist { font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); font-weight: 600; margin-bottom: 12px; }
-  .compare h3 { font-family:"Iowan Old Style","Charter","Palatino Linotype",Georgia,serif; font-size: 23px; font-weight: 500; margin: 0 0 12px; }
+  .compare h3 { font-family:"Iowan Old Style","Charter","Palatino Linotype",Georgia,serif; font-size: 22px; font-weight: 500; margin: 0 0 12px; }
   .compare p { font-size: 14.5px; color: var(--ink-soft); margin: 0; }
   .compare .item.near { background: var(--paper-2); box-shadow: inset 3px 0 0 var(--gold-bright); }
 
-  /* figures */
   .figwrap { background: var(--panel); border: 1px solid var(--line); padding: 30px; }
   figure { margin: 0; }
   figcaption { font-size: 13px; color: var(--muted); margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--line-soft); max-width: 860px; }
   figcaption b { color: var(--ink); font-weight: 600; }
   svg { display: block; width: 100%; height: auto; }
 
-  /* spec strip */
   .specs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); margin-top: 30px; }
   .specs div { background: var(--panel); padding: 22px 20px; }
   .specs .k { font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); font-weight: 600; margin-bottom: 8px; }
   .specs .v { font-family:"Iowan Old Style","Charter","Palatino Linotype",Georgia,serif; font-size: 21px; }
   .specs .v small { font-family: "Helvetica Neue",Arial,sans-serif; font-size: 12px; color: var(--ink-soft); display: block; letter-spacing: 0; margin-top: 4px; }
 
-  /* pilot */
-  .pilot-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--line); border: 1px solid var(--line); }
-  .pilot-grid .panel h3 { font-size: 22px; }
+  .photo { border: 1px solid var(--line); background: var(--panel); padding: 14px; margin-top: 30px; }
+  .photo img { display: block; width: 100%; height: auto; }
+
+  .band { position: relative; margin: 8px 0; }
+  .band img { display: block; width: 100%; height: clamp(220px, 36vh, 380px); object-fit: cover; object-position: center; }
+  .band figcaption { position: absolute; left: 0; right: 0; bottom: 0; display: flex; justify-content: space-between; align-items: flex-end; gap: 20px; padding: 20px 36px; background: linear-gradient(to top, rgba(33,28,16,0.58), rgba(33,28,16,0)); border: none; margin: 0; max-width: none; }
+  .band .cap-title { font-family: "Iowan Old Style","Charter","Palatino Linotype",Georgia,serif; color: #fbf7ec; font-size: clamp(18px, 2.4vw, 26px); font-weight: 600; line-height: 1.15; margin: 0; max-width: 72%; }
+  .band .cap-meta { font-family: "SFMono-Regular","SF Mono","JetBrains Mono","IBM Plex Mono",ui-monospace,Menlo,monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(251,247,236,0.8); font-weight: 500; text-align: right; }
+
   ul.clean { list-style: none; padding: 0; margin: 0; }
   ul.clean li { padding: 11px 0 11px 26px; border-bottom: 1px solid var(--line-soft); position: relative; font-size: 15.5px; color: var(--ink-soft); }
   ul.clean li:last-child { border-bottom: none; }
   ul.clean li::before { content: ""; position: absolute; left: 2px; top: 19px; width: 7px; height: 7px; border: 1.5px solid var(--slate); border-radius: 50%; }
   ul.clean.conditions li::before { border-color: var(--clay); }
+  ul.clean.sage li::before { border-color: var(--sage); }
+
   .note { margin-top: 26px; background: var(--clay-bg); border-left: 2px solid var(--clay); padding: 20px 24px; font-size: 15.5px; color: var(--ink); }
   .note b { color: var(--clay); }
+  .note.slate { background: var(--slate-bg); border-left-color: var(--slate); }
+  .note.slate b { color: var(--slate); }
+  .note.sage { background: var(--sage-bg); border-left-color: var(--sage); }
+  .note.sage b { color: var(--sage); }
 
-  /* matrix */
+  .pilot-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--line); border: 1px solid var(--line); }
+  .pilot-grid .panel h3 { font-size: 22px; }
+
   .table-scroll { overflow-x: auto; border: 1px solid var(--line); }
   table.matrix { border-collapse: collapse; width: 100%; min-width: 760px; font-size: 13.5px; background: var(--panel); }
   table.matrix th, table.matrix td { padding: 13px 14px; text-align: center; border-bottom: 1px solid var(--line-soft); border-right: 1px solid var(--line-soft); }
@@ -320,12 +322,9 @@
   .matrix-key span { display: inline-flex; align-items: center; gap: 7px; }
   .swatch { width: 12px; height: 12px; border-radius: 3px; }
 
-  /* safety */
-  .safety-box { background: var(--panel); border: 1px solid var(--line); border-top: 2px solid var(--clay); padding: 40px 40px 34px; }
-  .safety-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 40px; margin-top: 22px; }
-  .safety-grid div { padding: 11px 0 11px 28px; position: relative; font-size: 15px; color: var(--ink-soft); border-bottom: 1px solid var(--line-soft); }
-  .safety-grid div::before { content: "✓"; position: absolute; left: 0; top: 10px; color: var(--sage); font-weight: 700; }
-  .safety-grid div.no::before { content: "✕"; color: var(--clay); }
+  /* svg shared label classes */
+  .tl { font-family:"Helvetica Neue",Arial,sans-serif; font-size:13px; fill:#211c10; font-weight:600; }
+  .sl { font-family:"Helvetica Neue",Arial,sans-serif; font-size:10.5px; fill:#8c7f63; }
 
   /* references */
   .ref-group-title { font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); font-weight: 600; margin: 30px 0 14px; }
@@ -333,6 +332,8 @@
   ol.refs-list li { margin-bottom: 12px; line-height: 1.5; padding-left: 6px; }
   ol.refs-list li i { color: var(--ink); }
   .ref-caveat { font-size: 14px; color: var(--ink-soft); background: var(--paper-2); border: 1px solid var(--line); border-left: 2px solid var(--clay); padding: 16px 20px; margin: 16px 0 6px; }
+
+  section.refs { padding: 80px 0; border-top: 1px solid var(--line); }
 
   footer { border-top: 1px solid var(--line); padding: 48px 0 70px; }
   footer .f-inner { display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap; align-items: baseline; }
@@ -342,58 +343,71 @@
 
   @media (max-width: 820px) {
     nav.menu { display: none; }
-    .two-col, .compare, .pilot-grid, .specs, .safety-grid, .stat-row { grid-template-columns: 1fr; }
+    .two-col, .compare, .pilot-grid, .specs, .stat-row, .domain-select { grid-template-columns: 1fr; }
     .specs { grid-template-columns: 1fr 1fr; }
     .stat-row { gap: 30px; }
-    section { padding: 60px 0; }
-    .hero { padding: 64px 0 54px; }
+    section.block { padding: 50px 0; }
+    .hero { padding: 60px 0 46px; }
     .hero-inner { flex-direction: column-reverse; align-items: flex-start; gap: 30px; }
-    .hero-figure { width: 156px; }
+    .hero-figure { width: 150px; }
     .wrap { padding: 0 24px; }
+    .domain-head .dh-idx { display: none; }
   }
 </style>
 </head>
-<body>
+<body class="is-hub">
 
 <header class="topbar">
   <div class="topbar-inner">
-    <div class="brand">
+    <button class="brand" data-target="hub" aria-label="Canary Labs home">
       <img class="logo-mark" src="canary_assets/canary-mark.png" alt="Canary Labs bird mark">
       <span class="logo serif">Canary Labs</span>
-      <span class="tagline">Personal Air Sentinels</span>
-    </div>
+      <span class="tagline">Olfaction as Interface</span>
+    </button>
     <nav class="menu">
-      <a href="#sides">Two sides</a>
-      <a href="#domains">Domains</a>
-      <a href="#exposure">Exposure</a>
-      <a href="#measurement">Measurement</a>
-      <a href="#device">Device</a>
-      <a href="#olfaction">Olfaction</a>
-      <a href="#pilot">Pilot</a>
-      <a href="#usecases">Use cases</a>
+      <a data-target="global-health">Global health</a>
+      <a data-target="animal-welfare">Animal welfare</a>
+      <a data-target="ai-safety">AI safety</a>
       <a href="#references">References</a>
     </nav>
   </div>
 </header>
 
-<section class="hero" style="border-top:none;">
+<!-- ===================== HUB ===================== -->
+<section class="hero" id="hub">
   <div class="wrap hero-inner">
     <div class="hero-copy">
-    <p class="kicker">Neuroscience-led · Early feasibility project</p>
-    <h1 class="serif">Canary <em>Labs</em></h1>
-    <p class="full-title">Near-Nose Sensing for Harmful Air Exposure</p>
-    <p class="sub">A neuroscience-led platform for filtering and reading the chemical air people actually breathe.</p>
-    <p class="body">Dirty air is not only an environmental background. It enters through the nose and lungs, and it may affect respiratory health, immune function, development, learning, affect, and long-term brain health. This project asks whether we can measure exposure closer to the body, and whether olfaction can be used as a way to study how chemical signals become biological state and action.</p>
-    <p class="coal">Named for the bird that once warned miners of air no one could see. The first claim here is just as plain: dirty air is a major biological exposure, and we usually measure it too far from the body.</p>
-    <div class="tags">
-      <span class="tag t1">Neuroscience enquiry</span>
-      <span class="tag t2">Personal exposure sensing</span>
-      <span class="tag t3">Low-cost filtration prototype</span>
-    </div>
+      <p class="kicker">Neuroscience-led · Early feasibility programme</p>
+      <h1 class="serif">Canary <em>Labs</em></h1>
+      <p class="full-title">Olfaction as a hidden-state interface between body, brain, environment, and behaviour.</p>
+      <p class="body">Smell is how nervous systems read airborne chemistry and turn it into emotion, threat detection, memory, and action. Canary Labs studies that channel and builds the instrument to measure it. The same sensing logic points at three domains. Pick one to see the work.</p>
     </div>
     <figure class="hero-figure">
       <img src="canary_assets/canary-mark.png" alt="Canary Labs bird mark">
     </figure>
+  </div>
+  <div class="wrap">
+    <div class="domain-select" role="tablist" aria-label="Research domains">
+      <button class="domain-card" role="tab" data-target="global-health" aria-controls="global-health">
+        <span class="dnum"><span class="dot"></span>Domain one</span>
+        <span class="dc-title serif">Global health</span>
+        <span class="dc-desc">The near-nose device. Measuring and reducing the air a person actually breathes, closer to the body than any room sensor.</span>
+        <span class="go">Enter</span>
+      </button>
+      <button class="domain-card" role="tab" data-target="animal-welfare" aria-controls="animal-welfare">
+        <span class="dnum"><span class="dot"></span>Domain two</span>
+        <span class="dc-title serif">Animal welfare</span>
+        <span class="dc-desc">VOCs and near-nose sensing for animals, paired with brain-computer interfaces to read pre-verbal internal state.</span>
+        <span class="go">Enter</span>
+      </button>
+      <button class="domain-card" role="tab" data-target="ai-safety" aria-controls="ai-safety">
+        <span class="dnum"><span class="dot"></span>Domain three</span>
+        <span class="dc-title serif">AI safety</span>
+        <span class="dc-desc">Giving AI a sense of smell. A chemical state channel for embodied systems that today sense only vision and sound.</span>
+        <span class="go">Enter</span>
+      </button>
+    </div>
+    <p class="hub-hint">Select a domain to see the work. The near-nose platform is the shared instrument across all three.</p>
   </div>
 </section>
 
@@ -407,506 +421,646 @@
   </figure>
 </div>
 
-<section id="sides">
-  <div class="wrap">
-    <div class="sec-head">
-      <div class="left">
-        <p class="eyebrow">Two connected sides</p>
-        <h2 class="serif">The two sides</h2>
+<div id="panels">
+
+<!-- ===================== GLOBAL HEALTH ===================== -->
+<section class="domain-panel dh-global" id="global-health" role="tabpanel" aria-label="Global health">
+  <div class="domain-head">
+    <div class="wrap">
+      <div class="dh-left">
+        <p class="dh-kick"><span class="dot"></span>Domain one · the applied edge</p>
+        <h2 class="dh-title serif">Global health</h2>
+        <p class="dh-claim">Measure what a person actually breathes, closer to the body than any room sensor, and reduce it at the same time. This is where the platform starts, because the exposure is urgent, measurable, and testable today.</p>
       </div>
-      <span class="idx">01</span>
-    </div>
-    <div class="two-col">
-      <div class="panel neuro">
-        <p class="pk"><span class="dot"></span>Side one · Enquiry</p>
-        <h3>Neuroscience enquiry</h3>
-        <p>Olfaction is a nervous-system interface. The nose samples volatile signals from the environment and from bodies, and the brain turns those signals into internal state, prediction, and action.</p>
-        <p>These signals may carry information about threat, safety, food, inflammation, disease, stress, affect, and social state. The question I care about is how a chemical signal at the nose becomes neural meaning and then behaviour, and whether some of that signal reports on hidden biological state before it shows up as symptoms.</p>
-      </div>
-      <div class="panel applied">
-        <p class="pk"><span class="dot"></span>Side two · Platform</p>
-        <h3>Applied platform</h3>
-        <p>The prototype is a near-nose system that filters pollutants and reads VOCs, gases, particulate patterns, humidity, temperature, and airflow. It places sensing close to the breathing zone rather than across the room.</p>
-        <p>It compares near-nose air with room-level air and with the readout from a consumer air purifier. It is a sensing and filtration platform, not a diagnostic device, and it does not deliver or generate odours.</p>
-      </div>
+      <span class="dh-idx serif">01</span>
     </div>
   </div>
-</section>
 
-<section id="domains">
-  <div class="wrap">
-    <div class="sec-head">
-      <div class="left">
-        <p class="eyebrow">What the research informs</p>
-        <h2 class="serif">Three domains</h2>
-        <p class="dek">The near-nose platform is the applied edge of a wider enquiry into olfaction as a hidden-state interface. The same sensing logic reaches across three domains. Dirty air is where Canary Labs starts, because it is urgent, measurable, and testable today.</p>
-      </div>
-      <span class="idx">02</span>
-    </div>
-    <div class="compare">
-      <div class="item" style="box-shadow: inset 3px 0 0 var(--sage);">
-        <p class="dist">Domain one</p>
-        <h3 class="serif">Animal welfare</h3>
-        <p>Animals often signal distress, illness, fear, pain, and social stress chemically before any of it is visible in behaviour. Reading those signals could flag poor welfare early, without restraint, blood tests, implants, or invasive monitoring, across shelters, veterinary care, farms, transport, sanctuaries, and labs. Here the sensing layer is the value, not the filter. The strongest claim is early detection of suffering before it becomes obvious.</p>
-      </div>
-      <div class="item" style="box-shadow: inset 3px 0 0 var(--slate);">
-        <p class="dist">Domain two</p>
-        <h3 class="serif">AI safety</h3>
-        <p>Most AI learns from visible behaviour, text, images, and reward, while missing hidden internal state. Embodied AI senses vision and sound far better than airborne chemistry. Olfactory sensing could add a missing state channel for stress, threat, uncertainty, contamination, smoke, decay, illness, and environmental danger, so systems model context rather than only predicting surface behaviour. The claim is a new sensory channel for safer embodied AI, not a solution to AI safety.</p>
-      </div>
-      <div class="item near">
-        <p class="dist">Domain three · we start here</p>
-        <h3 class="serif">Global health</h3>
-        <p>Dirty air is a major global exposure, and most monitoring happens too far from the body to show what a person actually breathes at the nose. A near-nose platform measures personal exposure more accurately, and the filter can reduce it rather than only record it. First beneficiaries include children in polluted cities, commuters, and workers exposed to dust, smoke, fumes, mould, pollen, or combustion products.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="band">
-  <figure style="margin:0;">
-    <img src="canary_assets/exposure-smog.jpg" alt="A hazy city skyline under air pollution">
-    <figcaption>
-      <p class="cap-title">A city under haze. Most of what people breathe is invisible at the point it enters the body.</p>
-      <span class="cap-meta">São Paulo<br>air pollution</span>
-    </figcaption>
-  </figure>
-</div>
-
-<section id="exposure">
-  <div class="wrap">
-    <div class="sec-head">
-      <div class="left">
-        <p class="eyebrow">The first test case</p>
-        <h2 class="serif">Why dirty air first</h2>
-        <p class="dek">Polluted air is a strong place to start because it is urgent, measurable, and biologically meaningful. The exposures are real and continuous, and sensors can read parts of them today without sampling any tissue.</p>
-      </div>
-      <span class="idx">03</span>
-    </div>
-
-    <div class="stat-row">
-      <div class="bigstat">
-        <div class="num serif">8.1<span>M</span></div>
-        <p class="cap">Deaths a year are attributed to air pollution worldwide. It is one of the largest environmental contributors to ill health, and most of it is invisible at the point where people breathe it.</p>
-        <p class="src">State of Global Air 2024 · HEI / IHME / UNICEF</p>
-      </div>
-      <div>
-        <p style="color:var(--ink-soft);">The chemical air people breathe is a mix of contributors, and a near-nose reading is meant to capture the part that actually reaches a person:</p>
-        <div class="chips">
-          <span>Particulate matter</span>
-          <span>Ultrafine particles</span>
-          <span>Combustion products</span>
-          <span>VOCs</span>
-          <span>Allergens</span>
-          <span>Smoke</span>
-          <span>Dust</span>
-          <span>Mould</span>
-          <span>Industrial fumes</span>
+  <section class="block bt">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="left">
+          <p class="eyebrow">The first test case</p>
+          <h2 class="serif">Why dirty air first</h2>
+          <p class="dek">Polluted air is a strong place to start because it is urgent, measurable, and biologically meaningful. The exposures are real and continuous, and sensors can read parts of them today without sampling any tissue.</p>
         </div>
-        <p style="color:var(--ink-soft); margin-bottom:0;">These exposures may matter for respiratory disease, asthma, and other inflammatory conditions. They could also matter for child development, learning, and attention, and a growing body of work tests whether they contribute to long-term brain health. I treat these as open questions the work might inform, not as effects this device measures.</p>
+      </div>
+      <div class="stat-row">
+        <div class="bigstat">
+          <div class="num serif">8.1<span>M</span></div>
+          <p class="cap">Deaths a year are attributed to air pollution worldwide. It is one of the largest environmental contributors to ill health, and most of it is invisible at the point where people breathe it.</p>
+          <p class="src">State of Global Air 2024 · HEI / IHME / UNICEF</p>
+        </div>
+        <div>
+          <p style="color:var(--ink-soft);">The chemical air people breathe is a mix of contributors, and a near-nose reading is meant to capture the part that actually reaches a person:</p>
+          <div class="chips">
+            <span>Particulate matter</span><span>Ultrafine particles</span><span>Combustion products</span>
+            <span>VOCs</span><span>Allergens</span><span>Smoke</span><span>Dust</span><span>Mould</span><span>Industrial fumes</span>
+          </div>
+          <p style="color:var(--ink-soft); margin-bottom:0;">These exposures may matter for respiratory disease, asthma, and other inflammatory conditions. They could also matter for child development, learning, and attention, and a growing body of work tests whether they contribute to long-term brain health. These are open questions the work might inform, not effects this device measures.</p>
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<div class="band">
-  <figure style="margin:0;">
-    <img src="canary_assets/measurement-tube.jpg" alt="Commuters on an underground platform as a train passes">
-    <figcaption>
-      <p class="cap-title">On a platform, the air at the nose can differ sharply from the room average.</p>
-      <span class="cap-meta">Underground<br>breathing zone</span>
-    </figcaption>
-  </figure>
-</div>
-
-<section id="measurement">
-  <div class="wrap">
-    <div class="sec-head">
-      <div class="left">
-        <p class="eyebrow">The measurement gap</p>
-        <h2 class="serif">Measured too far away</h2>
-        <p class="dek">Air quality is usually reported at the room, street, or city level. That is useful for policy and for averages, but the biological question is what reaches the breathing zone. A child near traffic, a worker near fumes, or someone in a smoky room can have a very different exposure from the room average, and that difference is exactly the air that reaches the nose and lungs.</p>
-      </div>
-      <span class="idx">04</span>
-    </div>
-    <div class="compare">
-      <div class="item room">
-        <p class="dist">≈ 2–5 m away</p>
-        <h3 class="serif">Room sensor</h3>
-        <p>Reports what the room sees. A spatial average that smooths over local sources and the air closest to a person.</p>
-      </div>
-      <div class="item purifier">
-        <p class="dist">at the device intake</p>
-        <h3 class="serif">Air purifier readout</h3>
-        <p>Reports what the purifier sees at its own intake. Tuned to show the device working, not to describe a person's exposure.</p>
-      </div>
-      <div class="item near">
-        <p class="dist">≈ 5–15 cm from the nose</p>
-        <h3 class="serif">Near-nose sensor</h3>
-        <p>Aims at what the person actually breathes, in the breathing zone, where the biologically relevant dose is set.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="device">
-  <div class="wrap">
-    <div class="sec-head">
-      <div class="left">
-        <p class="eyebrow">Prototype concept</p>
-        <h2 class="serif">Device layout</h2>
-        <p class="dek">A small near-nose unit draws breathing-zone air across a layered filter and a set of sensors, corrects the readings for humidity and temperature, and logs the result alongside readings from a room sensor and an air purifier. The schematic shows the air path and the data path.</p>
-      </div>
-      <span class="idx">05</span>
-    </div>
-
-    <div class="figwrap">
-      <figure>
-        <svg viewBox="0 0 940 470" role="img" aria-label="Schematic of the Canary near-nose sensing and filtration device">
-          <defs>
-            <marker id="aInk" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 Z" fill="#524833"/></marker>
-            <marker id="aClay" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 Z" fill="#bd7a2a"/></marker>
-            <marker id="aSlate" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 Z" fill="#5d7280"/></marker>
-          </defs>
-          <style>
-            .bx { fill:#fbf7ec; stroke:#211c10; stroke-width:1.3; }
-            .bxs { fill:#fbf7ec; stroke:#e7dcbe; stroke-width:1.2; }
-            .tl { font-family:"Helvetica Neue",Arial,sans-serif; font-size:13px; fill:#211c10; font-weight:600; }
-            .sl { font-family:"Helvetica Neue",Arial,sans-serif; font-size:10.5px; fill:#8c7f63; }
-            .air { stroke:#bd7a2a; stroke-width:2; fill:none; }
-            .dat { stroke:#5d7280; stroke-width:1.5; fill:none; stroke-dasharray:5 4; }
-            .ln { stroke:#524833; stroke-width:1.4; fill:none; }
-          </style>
-
-          <text x="16" y="34" class="tl" fill="#bd7a2a">Breathing zone</text>
-          <text x="16" y="51" class="sl">the air the person inhales</text>
-          <path d="M52,150 q-22,18 -10,40 q4,8 16,8 l28,0" class="air"/>
-          <text x="24" y="222" class="sl">nose</text>
-
-          <path class="air" d="M96,108 H190" marker-end="url(#aClay)"/>
-          <path class="air" d="M96,140 H190" marker-end="url(#aClay)"/>
-          <path class="air" d="M96,172 H190" marker-end="url(#aClay)"/>
-          <text x="100" y="98" class="sl">incoming air</text>
-
-          <!-- 5-layer filter -->
-          <rect class="bx" x="192" y="86" width="58" height="108" rx="3" fill="#f3e6cd"/>
-          <line x1="200" y1="92" x2="200" y2="188" stroke="#bd7a2a" stroke-width="1.4"/>
-          <line x1="210" y1="92" x2="210" y2="188" stroke="#8c7f63" stroke-width="1.4"/>
-          <line x1="221" y1="92" x2="221" y2="188" stroke="#211c10" stroke-width="1.6"/>
-          <line x1="232" y1="92" x2="232" y2="188" stroke="#8c7f63" stroke-width="1.4"/>
-          <line x1="242" y1="92" x2="242" y2="188" stroke="#bd7a2a" stroke-width="1.4"/>
-          <text x="221" y="214" class="tl" text-anchor="middle">Filter</text>
-          <text x="221" y="230" class="sl" text-anchor="middle">5 layers</text>
-
-          <path class="air" d="M250,140 H300" marker-end="url(#aClay)"/>
-
-          <!-- sensing chamber -->
-          <rect class="bxs" x="300" y="58" width="258" height="244" rx="4"/>
-          <text x="312" y="80" class="sl">small airflow path · sensing chamber</text>
-
-          <rect class="bx" x="320" y="92" width="216" height="44" rx="3" fill="#e2e8ec"/>
-          <text x="332" y="113" class="tl">Particulate sensor</text>
-          <text x="332" y="128" class="sl">PM2.5, PM1, ultrafine counts</text>
-
-          <rect class="bx" x="320" y="146" width="216" height="44" rx="3" fill="#f3e6cd"/>
-          <text x="332" y="167" class="tl">VOC / gas sensor layer</text>
-          <text x="332" y="182" class="sl">VOCs, NO₂, CO₂, O₃ · 22 channels</text>
-
-          <rect class="bx" x="320" y="200" width="216" height="44" rx="3" fill="#fbf7ec"/>
-          <text x="332" y="221" class="tl">Humidity &amp; temperature</text>
-          <text x="332" y="236" class="sl">correction for the readings</text>
-
-          <path class="air" d="M300,258 q128,40 258,0" marker-end="url(#aClay)"/>
-          <text x="400" y="294" class="sl">airflow path</text>
-
-          <path class="dat" d="M536,114 H648" marker-end="url(#aSlate)"/>
-          <path class="dat" d="M536,168 H648" marker-end="url(#aSlate)"/>
-          <path class="dat" d="M536,222 H648" marker-end="url(#aSlate)"/>
-
-          <rect class="bx" x="648" y="118" width="156" height="98" rx="3"/>
-          <text x="726" y="160" class="tl" text-anchor="middle">Microcontroller</text>
-          <text x="726" y="178" class="sl" text-anchor="middle">SoC, reads &amp; logs sensors</text>
-
-          <rect class="bxs" x="648" y="232" width="72" height="50" rx="3"/>
-          <text x="684" y="261" class="tl" text-anchor="middle">Battery</text>
-          <rect x="720" y="247" width="5" height="20" fill="#211c10"/>
-
-          <rect class="bx" x="732" y="232" width="72" height="50" rx="3" fill="#e2e8ec"/>
-          <text x="768" y="255" class="tl" text-anchor="middle">Data</text>
-          <text x="768" y="271" class="sl" text-anchor="middle">Bluetooth</text>
-
-          <path class="ln" d="M726,216 V232" marker-end="url(#aInk)"/>
-          <path class="dat" d="M804,168 q42,0 42,40 V232" marker-end="url(#aSlate)"/>
-
-          <line x1="16" y1="348" x2="924" y2="348" stroke="#f0e9d4" stroke-width="1"/>
-          <text x="16" y="374" class="sl">Compared against</text>
-
-          <rect class="bxs" x="16" y="388" width="206" height="56" rx="3"/>
-          <text x="32" y="412" class="tl">Room sensor</text>
-          <text x="32" y="430" class="sl">spatial average of the room</text>
-
-          <rect class="bxs" x="242" y="388" width="226" height="56" rx="3"/>
-          <text x="258" y="412" class="tl">Air purifier readout</text>
-          <text x="258" y="430" class="sl">reading at the device intake</text>
-
-          <rect class="bx" x="488" y="388" width="226" height="56" rx="3" fill="#f3e6cd"/>
-          <text x="504" y="412" class="tl" fill="#bd7a2a">Near-nose reading</text>
-          <text x="504" y="430" class="sl">breathing-zone exposure</text>
-
-          <path class="dat" d="M768,282 q0,52 -58,92" marker-end="url(#aSlate)"/>
-        </svg>
-        <figcaption><b>Figure 1.</b> Breathing-zone air is drawn across a five-layer filter into a small sensing chamber holding particulate and gas sensors, with humidity and temperature used to correct the readings. A microcontroller logs the data, runs on a small battery, and sends readings out over Bluetooth. The near-nose reading is compared against a room sensor and a purifier readout. Clay shows the air path; slate dashed shows the data path.</figcaption>
-      </figure>
-    </div>
-
-    <div class="specs">
-      <div><div class="k">Filter</div><div class="v serif">5 layers<small>pre-filter · HEPA · carbon · catalytic · adsorbent</small></div></div>
-      <div><div class="k">Sensing</div><div class="v serif">22 channels<small>VOCs, NO₂, CO₂, PM2.5, O₃, RH, T, airflow</small></div></div>
-      <div><div class="k">Link</div><div class="v serif">BLE<small>logs to a companion app, near-nose vs room</small></div></div>
-      <div><div class="k">Form</div><div class="v serif">Worn<small>light, soft-touch, kept near the breathing zone</small></div></div>
-    </div>
-
-    <div class="sec-head" style="margin-top:64px; margin-bottom:30px;">
-      <div class="left">
-        <p class="eyebrow">Filtration detail</p>
-        <h2 class="serif" style="font-size:clamp(24px,3vw,34px);">The filter</h2>
-        <p class="dek">Each layer targets a different fraction so the sensors downstream still see a usable flow. The aim is enough capture to compare a filtered against an unfiltered reading, not a sealed mask.</p>
-      </div>
-    </div>
-    <figure class="photo">
-      <img src="canary_assets/device-filter.jpg" alt="A circular pleated HEPA filter with a dark activated-carbon inner layer">
-      <figcaption><b>Figure 2.</b> A circular cartridge of the kind the prototype miniaturises: a pleated HEPA wall around a dark activated-carbon core. The near-nose version trades total capture for a low enough resistance that the sensors still read a usable flow.</figcaption>
+  <div class="band">
+    <figure style="margin:0;">
+      <img src="canary_assets/exposure-smog.jpg" alt="A hazy city skyline under air pollution">
+      <figcaption>
+        <p class="cap-title">A city under haze. Most of what people breathe is invisible at the point it enters the body.</p>
+        <span class="cap-meta">São Paulo<br>air pollution</span>
+      </figcaption>
     </figure>
-    <div class="figwrap">
-      <figure>
-        <svg viewBox="0 0 940 220" role="img" aria-label="Five-layer filtration stack">
-          <style>
-            .lbox { fill:#fbf7ec; stroke:#e7dcbe; stroke-width:1.2; }
-            .lnum { font-family:"Iowan Old Style","Charter","Palatino Linotype",Georgia,serif; font-size:26px; fill:#a87d10; }
-            .ltl { font-family:"Helvetica Neue",Arial,sans-serif; font-size:13px; fill:#211c10; font-weight:600; }
-            .lsl { font-family:"Helvetica Neue",Arial,sans-serif; font-size:11px; fill:#8c7f63; }
-          </style>
-          <rect class="lbox" x="6" y="30" width="172" height="150" rx="4"/>
-          <text x="22" y="66" class="lnum">1</text>
-          <text x="22" y="104" class="ltl">Pre-filter</text>
-          <text x="22" y="124" class="lsl">PM₁₀, fibres</text>
-          <text x="22" y="150" class="lsl">large dust, hair, lint</text>
+  </div>
 
-          <rect class="lbox" x="194" y="30" width="172" height="150" rx="4"/>
-          <text x="210" y="66" class="lnum">2</text>
-          <text x="210" y="104" class="ltl">HEPA</text>
-          <text x="210" y="124" class="lsl">PM2.5, PM₁</text>
-          <text x="210" y="150" class="lsl">fine particles, pollen, smoke</text>
+  <section class="block bt">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="left">
+          <p class="eyebrow">The measurement gap</p>
+          <h2 class="serif">Measured too far away</h2>
+          <p class="dek">Air quality is usually reported at the room, street, or city level. That is useful for policy and for averages, but the biological question is what reaches the breathing zone. A child near traffic, a worker near fumes, or someone in a smoky room can have a very different exposure from the room average, and that difference is exactly the air that reaches the nose and lungs.</p>
+        </div>
+      </div>
+      <div class="compare">
+        <div class="item room">
+          <p class="dist">≈ 2–5 m away</p>
+          <h3 class="serif">Room sensor</h3>
+          <p>Reports what the room sees. A spatial average that smooths over local sources and the air closest to a person.</p>
+        </div>
+        <div class="item purifier">
+          <p class="dist">at the device intake</p>
+          <h3 class="serif">Air purifier readout</h3>
+          <p>Reports what the purifier sees at its own intake. Tuned to show the device working, not to describe a person's exposure.</p>
+        </div>
+        <div class="item near">
+          <p class="dist">≈ 5–15 cm from the nose</p>
+          <h3 class="serif">Near-nose sensor</h3>
+          <p>Aims at what the person actually breathes, in the breathing zone, where the biologically relevant dose is set.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-          <rect class="lbox" x="382" y="30" width="172" height="150" rx="4" fill="#f3ecd9"/>
-          <text x="398" y="66" class="lnum">3</text>
-          <text x="398" y="104" class="ltl">Activated carbon</text>
-          <text x="398" y="124" class="lsl">VOC broadband</text>
-          <text x="398" y="150" class="lsl">odours, solvents</text>
+  <section class="block bt">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="left">
+          <p class="eyebrow">Prototype concept</p>
+          <h2 class="serif">The filtering device</h2>
+          <p class="dek">A small near-nose unit draws breathing-zone air across a layered filter and a set of sensors, corrects the readings for humidity and temperature, and logs the result alongside readings from a room sensor and an air purifier. The schematic shows the air path and the data path.</p>
+        </div>
+      </div>
 
-          <rect class="lbox" x="570" y="30" width="172" height="150" rx="4"/>
-          <text x="586" y="66" class="lnum">4</text>
-          <text x="586" y="104" class="ltl">Catalytic</text>
-          <text x="586" y="124" class="lsl">O₃, aldehydes</text>
-          <text x="586" y="150" class="lsl">broken down to benign molecules</text>
+      <div class="figwrap">
+        <figure>
+          <svg viewBox="0 0 940 470" role="img" aria-label="Schematic of the Canary Labs near-nose sensing and filtration device">
+            <defs>
+              <marker id="aInk" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 Z" fill="#524833"/></marker>
+              <marker id="aClay" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 Z" fill="#bd7a2a"/></marker>
+              <marker id="aSlate" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 Z" fill="#5d7280"/></marker>
+            </defs>
+            <style>
+              .bx { fill:#fbf7ec; stroke:#211c10; stroke-width:1.3; }
+              .bxs { fill:#fbf7ec; stroke:#e7dcbe; stroke-width:1.2; }
+              .air { stroke:#bd7a2a; stroke-width:2; fill:none; }
+              .dat { stroke:#5d7280; stroke-width:1.5; fill:none; stroke-dasharray:5 4; }
+              .ln { stroke:#524833; stroke-width:1.4; fill:none; }
+            </style>
+            <text x="16" y="34" class="tl" fill="#bd7a2a">Breathing zone</text>
+            <text x="16" y="51" class="sl">the air the person inhales</text>
+            <path d="M52,150 q-22,18 -10,40 q4,8 16,8 l28,0" class="air"/>
+            <text x="24" y="222" class="sl">nose</text>
+            <path class="air" d="M96,108 H190" marker-end="url(#aClay)"/>
+            <path class="air" d="M96,140 H190" marker-end="url(#aClay)"/>
+            <path class="air" d="M96,172 H190" marker-end="url(#aClay)"/>
+            <text x="100" y="98" class="sl">incoming air</text>
+            <rect class="bx" x="192" y="86" width="58" height="108" rx="3" fill="#f3e6cd"/>
+            <line x1="200" y1="92" x2="200" y2="188" stroke="#bd7a2a" stroke-width="1.4"/>
+            <line x1="210" y1="92" x2="210" y2="188" stroke="#8c7f63" stroke-width="1.4"/>
+            <line x1="221" y1="92" x2="221" y2="188" stroke="#211c10" stroke-width="1.6"/>
+            <line x1="232" y1="92" x2="232" y2="188" stroke="#8c7f63" stroke-width="1.4"/>
+            <line x1="242" y1="92" x2="242" y2="188" stroke="#bd7a2a" stroke-width="1.4"/>
+            <text x="221" y="214" class="tl" text-anchor="middle">Filter</text>
+            <text x="221" y="230" class="sl" text-anchor="middle">5 layers</text>
+            <path class="air" d="M250,140 H300" marker-end="url(#aClay)"/>
+            <rect class="bxs" x="300" y="58" width="258" height="244" rx="4"/>
+            <text x="312" y="80" class="sl">small airflow path · sensing chamber</text>
+            <rect class="bx" x="320" y="92" width="216" height="44" rx="3" fill="#e2e8ec"/>
+            <text x="332" y="113" class="tl">Particulate sensor</text>
+            <text x="332" y="128" class="sl">PM2.5, PM1, ultrafine counts</text>
+            <rect class="bx" x="320" y="146" width="216" height="44" rx="3" fill="#f3e6cd"/>
+            <text x="332" y="167" class="tl">VOC / gas sensor layer</text>
+            <text x="332" y="182" class="sl">VOCs, NO₂, CO₂, O₃ · 22 channels</text>
+            <rect class="bx" x="320" y="200" width="216" height="44" rx="3" fill="#fbf7ec"/>
+            <text x="332" y="221" class="tl">Humidity &amp; temperature</text>
+            <text x="332" y="236" class="sl">correction for the readings</text>
+            <path class="air" d="M300,258 q128,40 258,0" marker-end="url(#aClay)"/>
+            <text x="400" y="294" class="sl">airflow path</text>
+            <path class="dat" d="M536,114 H648" marker-end="url(#aSlate)"/>
+            <path class="dat" d="M536,168 H648" marker-end="url(#aSlate)"/>
+            <path class="dat" d="M536,222 H648" marker-end="url(#aSlate)"/>
+            <rect class="bx" x="648" y="118" width="156" height="98" rx="3"/>
+            <text x="726" y="160" class="tl" text-anchor="middle">Microcontroller</text>
+            <text x="726" y="178" class="sl" text-anchor="middle">SoC, reads &amp; logs sensors</text>
+            <rect class="bxs" x="648" y="232" width="72" height="50" rx="3"/>
+            <text x="684" y="261" class="tl" text-anchor="middle">Battery</text>
+            <rect x="720" y="247" width="5" height="20" fill="#211c10"/>
+            <rect class="bx" x="732" y="232" width="72" height="50" rx="3" fill="#e2e8ec"/>
+            <text x="768" y="255" class="tl" text-anchor="middle">Data</text>
+            <text x="768" y="271" class="sl" text-anchor="middle">Bluetooth</text>
+            <path class="ln" d="M726,216 V232" marker-end="url(#aInk)"/>
+            <path class="dat" d="M804,168 q42,0 42,40 V232" marker-end="url(#aSlate)"/>
+            <line x1="16" y1="348" x2="924" y2="348" stroke="#f0e9d4" stroke-width="1"/>
+            <text x="16" y="374" class="sl">Compared against</text>
+            <rect class="bxs" x="16" y="388" width="206" height="56" rx="3"/>
+            <text x="32" y="412" class="tl">Room sensor</text>
+            <text x="32" y="430" class="sl">spatial average of the room</text>
+            <rect class="bxs" x="242" y="388" width="226" height="56" rx="3"/>
+            <text x="258" y="412" class="tl">Air purifier readout</text>
+            <text x="258" y="430" class="sl">reading at the device intake</text>
+            <rect class="bx" x="488" y="388" width="226" height="56" rx="3" fill="#f3e6cd"/>
+            <text x="504" y="412" class="tl" fill="#bd7a2a">Near-nose reading</text>
+            <text x="504" y="430" class="sl">breathing-zone exposure</text>
+            <path class="dat" d="M768,282 q0,52 -58,92" marker-end="url(#aSlate)"/>
+          </svg>
+          <figcaption><b>Figure 1.</b> Breathing-zone air is drawn across a five-layer filter into a small sensing chamber holding particulate and gas sensors, with humidity and temperature used to correct the readings. A microcontroller logs the data, runs on a small battery, and sends readings out over Bluetooth. The near-nose reading is compared against a room sensor and a purifier readout. Clay shows the air path; slate dashed shows the data path.</figcaption>
+        </figure>
+      </div>
 
-          <rect class="lbox" x="758" y="30" width="176" height="150" rx="4"/>
-          <text x="774" y="66" class="lnum">5</text>
-          <text x="774" y="104" class="ltl">Selective adsorbent</text>
-          <text x="774" y="124" class="lsl">target gases</text>
-          <text x="774" y="150" class="lsl">specific nuisance compounds</text>
+      <div class="specs">
+        <div><div class="k">Filter</div><div class="v serif">5 layers<small>pre-filter · HEPA · carbon · catalytic · adsorbent</small></div></div>
+        <div><div class="k">Sensing</div><div class="v serif">22 channels<small>VOCs, NO₂, CO₂, PM2.5, O₃, RH, T, airflow</small></div></div>
+        <div><div class="k">Link</div><div class="v serif">BLE<small>logs to a companion app, near-nose vs room</small></div></div>
+        <div><div class="k">Form</div><div class="v serif">Worn<small>light, soft-touch, kept near the breathing zone</small></div></div>
+      </div>
 
-          <path d="M178,105 H194" stroke="#bd7a2a" stroke-width="2" fill="none"/>
-          <path d="M366,105 H382" stroke="#bd7a2a" stroke-width="2" fill="none"/>
-          <path d="M554,105 H570" stroke="#bd7a2a" stroke-width="2" fill="none"/>
-          <path d="M742,105 H758" stroke="#bd7a2a" stroke-width="2" fill="none"/>
-        </svg>
-        <figcaption><b>Figure 3.</b> The replaceable filter moves from coarse to fine to chemical: a pre-filter for large particles, HEPA for fine particulate, activated carbon for a broad band of VOCs, a catalytic layer for ozone and aldehydes, and a selective adsorbent for specific target gases.</figcaption>
+      <div class="sec-head" style="margin-top:60px; margin-bottom:28px;">
+        <div class="left">
+          <p class="eyebrow">Filtration detail</p>
+          <h2 class="serif" style="font-size:clamp(24px,3vw,34px);">The filter</h2>
+          <p class="dek">Each layer targets a different fraction so the sensors downstream still see a usable flow. The aim is enough capture to compare a filtered against an unfiltered reading, not a sealed mask.</p>
+        </div>
+      </div>
+      <figure class="photo">
+        <img src="canary_assets/device-filter.jpg" alt="A circular pleated HEPA filter with a dark activated-carbon inner layer">
+        <figcaption><b>Figure 2.</b> A circular cartridge of the kind the prototype miniaturises: a pleated HEPA wall around a dark activated-carbon core. The near-nose version trades total capture for a low enough resistance that the sensors still read a usable flow.</figcaption>
       </figure>
+      <div class="figwrap" style="margin-top:30px;">
+        <figure>
+          <svg viewBox="0 0 940 220" role="img" aria-label="Five-layer filtration stack">
+            <style>
+              .lbox { fill:#fbf7ec; stroke:#e7dcbe; stroke-width:1.2; }
+              .lnum { font-family:"Iowan Old Style","Charter","Palatino Linotype",Georgia,serif; font-size:26px; fill:#a87d10; }
+            </style>
+            <rect class="lbox" x="6" y="30" width="172" height="150" rx="4"/>
+            <text x="22" y="66" class="lnum">1</text>
+            <text x="22" y="104" class="tl">Pre-filter</text>
+            <text x="22" y="124" class="sl">PM₁₀, fibres</text>
+            <text x="22" y="150" class="sl">large dust, hair, lint</text>
+            <rect class="lbox" x="194" y="30" width="172" height="150" rx="4"/>
+            <text x="210" y="66" class="lnum">2</text>
+            <text x="210" y="104" class="tl">HEPA</text>
+            <text x="210" y="124" class="sl">PM2.5, PM₁</text>
+            <text x="210" y="150" class="sl">fine particles, pollen, smoke</text>
+            <rect class="lbox" x="382" y="30" width="172" height="150" rx="4" fill="#f3ecd9"/>
+            <text x="398" y="66" class="lnum">3</text>
+            <text x="398" y="104" class="tl">Activated carbon</text>
+            <text x="398" y="124" class="sl">VOC broadband</text>
+            <text x="398" y="150" class="sl">odours, solvents</text>
+            <rect class="lbox" x="570" y="30" width="172" height="150" rx="4"/>
+            <text x="586" y="66" class="lnum">4</text>
+            <text x="586" y="104" class="tl">Catalytic</text>
+            <text x="586" y="124" class="sl">O₃, aldehydes</text>
+            <text x="586" y="150" class="sl">broken down to benign molecules</text>
+            <rect class="lbox" x="758" y="30" width="176" height="150" rx="4"/>
+            <text x="774" y="66" class="lnum">5</text>
+            <text x="774" y="104" class="tl">Selective adsorbent</text>
+            <text x="774" y="124" class="sl">target gases</text>
+            <text x="774" y="150" class="sl">specific nuisance compounds</text>
+            <path d="M178,105 H194" stroke="#bd7a2a" stroke-width="2" fill="none"/>
+            <path d="M366,105 H382" stroke="#bd7a2a" stroke-width="2" fill="none"/>
+            <path d="M554,105 H570" stroke="#bd7a2a" stroke-width="2" fill="none"/>
+            <path d="M742,105 H758" stroke="#bd7a2a" stroke-width="2" fill="none"/>
+          </svg>
+          <figcaption><b>Figure 3.</b> The replaceable filter moves from coarse to fine to chemical: a pre-filter for large particles, HEPA for fine particulate, activated carbon for a broad band of VOCs, a catalytic layer for ozone and aldehydes, and a selective adsorbent for specific target gases.</figcaption>
+        </figure>
+      </div>
     </div>
-  </div>
+  </section>
+
+  <section class="block bt">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="left">
+          <p class="eyebrow">The neuroscience underneath</p>
+          <h2 class="serif">Olfaction as an interface</h2>
+          <p class="dek">What makes smell unusual is its wiring. Most senses are relayed through the thalamus before they reach awareness. Olfaction has a faster, more direct route into limbic structures, which is part of why an odour can shift affect before it is consciously named. Reading the chemical air is a way to study that mapping, and it is the principle the other two domains build on.</p>
+        </div>
+      </div>
+      <div class="figwrap">
+        <figure>
+          <svg viewBox="0 0 940 300" role="img" aria-label="Olfactory pathways: a slow conscious route and a fast olfactory route">
+            <defs>
+              <marker id="pSlate" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 Z" fill="#5d7280"/></marker>
+              <marker id="pClay" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 Z" fill="#bd7a2a"/></marker>
+            </defs>
+            <style>
+              .pbS { fill:#e2e8ec; stroke:#5d7280; stroke-width:1.2; }
+              .pbC { fill:#f3e6cd; stroke:#bd7a2a; stroke-width:1.2; }
+              .pbL { fill:#efe5d4; stroke:#8a6f57; stroke-width:1.2; }
+              .prt { font-family:"Helvetica Neue",Arial,sans-serif; font-size:10.5px; letter-spacing:0.12em; font-weight:700; text-transform:uppercase; }
+            </style>
+            <text x="6" y="24" class="prt" fill="#5d7280">Conscious perception · slow</text>
+            <rect class="pbS" x="6" y="36" width="180" height="58" rx="4"/>
+            <text x="20" y="62" class="tl">Sensory input</text>
+            <text x="20" y="80" class="sl">eye, ear, skin</text>
+            <path d="M186,65 H214" stroke="#5d7280" stroke-width="1.5" marker-end="url(#pSlate)"/>
+            <rect class="pbS" x="214" y="36" width="170" height="58" rx="4"/>
+            <text x="228" y="62" class="tl">Thalamus</text>
+            <text x="228" y="80" class="sl">relay and gating</text>
+            <path d="M384,65 H412" stroke="#5d7280" stroke-width="1.5" marker-end="url(#pSlate)"/>
+            <rect class="pbS" x="412" y="36" width="170" height="58" rx="4"/>
+            <text x="426" y="62" class="tl">Cortex</text>
+            <text x="426" y="80" class="sl">conscious perception</text>
+            <path d="M582,65 H610" stroke="#5d7280" stroke-width="1.5" marker-end="url(#pSlate)"/>
+            <rect class="pbL" x="610" y="36" width="180" height="58" rx="4"/>
+            <text x="624" y="62" class="tl">Limbic system</text>
+            <text x="624" y="80" class="sl">emotion, memory, decision</text>
+            <text x="6" y="160" class="prt" fill="#bd7a2a">Olfactory pathway · fast</text>
+            <rect class="pbC" x="6" y="172" width="180" height="58" rx="4"/>
+            <text x="20" y="198" class="tl">Odour molecules</text>
+            <text x="20" y="216" class="sl">olfactory epithelium</text>
+            <path d="M186,201 H214" stroke="#bd7a2a" stroke-width="1.5" marker-end="url(#pClay)"/>
+            <rect class="pbC" x="214" y="172" width="170" height="58" rx="4"/>
+            <text x="228" y="198" class="tl">Olfactory bulb</text>
+            <text x="228" y="216" class="sl">first processing</text>
+            <path d="M384,201 H412" stroke="#bd7a2a" stroke-width="1.5" marker-end="url(#pClay)"/>
+            <rect class="pbL" x="412" y="172" width="180" height="58" rx="4"/>
+            <text x="426" y="195" class="tl">Limbic system</text>
+            <text x="426" y="212" class="sl">amygdala, piriform,</text>
+            <text x="426" y="226" class="sl">entorhinal cortex</text>
+            <path d="M592,201 H620" stroke="#bd7a2a" stroke-width="1.5" marker-end="url(#pClay)"/>
+            <text x="628" y="190" class="sl">Affect, memory, threat</text>
+            <text x="628" y="206" class="sl">reached before the smell</text>
+            <text x="628" y="222" class="sl">is consciously named.</text>
+            <line x1="6" y1="128" x2="934" y2="128" stroke="#f0e9d4" stroke-width="1"/>
+          </svg>
+          <figcaption><b>Figure 4.</b> A slower route carries most senses through the thalamus to cortex before they reach limbic structures. Odours take a more direct path through the olfactory bulb into the amygdala and nearby regions, which can change affect and arousal ahead of conscious naming. Canary Labs reads the chemical input to that fast route. It does not stimulate it.</figcaption>
+        </figure>
+      </div>
+      <p class="narrow" style="margin-top:30px; color:var(--ink-soft);">On the research side, the longer aim is a model that takes the chemical reading together with simple context, such as scene and stated intent, and infers a person's likely state. That is a way to ask how much of affect and arousal is predictable from the air at the nose. It stays on the reading side of the problem. No odour is delivered, and no clinical state is diagnosed.</p>
+    </div>
+  </section>
+
+  <section class="block bt">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="left">
+          <p class="eyebrow">Experiment one</p>
+          <h2 class="serif">The first pilot</h2>
+          <p class="dek">The first experiment places the three sensor positions side by side under safe indoor-air conditions and asks whether the near-nose reading differs from the room and purifier readings, and whether those differences track what people report.</p>
+        </div>
+      </div>
+      <div class="pilot-grid">
+        <div class="panel">
+          <h3 class="serif">Conditions compared</h3>
+          <ul class="clean conditions">
+            <li>Room-level air sensor</li><li>Consumer air purifier or fan readout</li>
+            <li>Near-nose sensor reading</li><li>Filtered condition</li><li>Unfiltered condition</li>
+          </ul>
+        </div>
+        <div class="panel">
+          <h3 class="serif">Basic readouts</h3>
+          <ul class="clean">
+            <li>Breathing comfort</li><li>Irritation</li><li>Headache</li><li>Fatigue</li>
+            <li>Smell test</li><li>Short attention task</li><li>Possibly simple non-invasive physiology</li>
+          </ul>
+        </div>
+      </div>
+      <p class="note"><b>No deliberate exposure.</b> The pilot does not expose people to harmful air on purpose. It tests the device under safe indoor-air conditions and compares readings across sensor positions. Any difference between filtered and unfiltered conditions comes from ordinary indoor air, not from introduced pollutants.</p>
+    </div>
+  </section>
+
+  <section class="block bt">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="left">
+          <p class="eyebrow">Use-case selection</p>
+          <h2 class="serif">Choosing a first use case</h2>
+          <p class="dek">The matrix scores candidate directions on the factors that decide whether a use case is worth starting with. Scores are qualitative and provisional, meant to order the options rather than grade them precisely.</p>
+        </div>
+      </div>
+      <div class="table-scroll">
+        <table class="matrix">
+          <thead>
+            <tr>
+              <th style="text-align:left;">Use case</th>
+              <th>Health<br>burden</th><th>Evidence<br>strength</th><th>Ease of<br>measurement</th>
+              <th>Time to<br>signal</th><th>Need for<br>near-nose</th><th>Ethical<br>feasibility</th><th>Deployment<br>pull</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><th>Occupational exposure</th><td><span class="score s-high">High</span></td><td><span class="score s-med">Medium</span></td><td><span class="score s-high">High</span></td><td><span class="score s-high">High</span></td><td><span class="score s-high">High</span></td><td><span class="score s-high">High</span></td><td><span class="score s-high">High</span></td></tr>
+            <tr><th>Inner-city childhood exposure</th><td><span class="score s-high">High</span></td><td><span class="score s-med">Medium</span></td><td><span class="score s-low">Low</span></td><td><span class="score s-low">Low</span></td><td><span class="score s-high">High</span></td><td><span class="score s-low">Low</span></td><td><span class="score s-med">Medium</span></td></tr>
+            <tr><th>Asthma &amp; inflammatory conditions</th><td><span class="score s-high">High</span></td><td><span class="score s-med">Medium</span></td><td><span class="score s-med">Medium</span></td><td><span class="score s-med">Medium</span></td><td><span class="score s-high">High</span></td><td><span class="score s-med">Medium</span></td><td><span class="score s-med">Medium</span></td></tr>
+            <tr><th>Neurodegenerative risk</th><td><span class="score s-high">High</span></td><td><span class="score s-low">Low</span></td><td><span class="score s-low">Low</span></td><td><span class="score s-low">Low</span></td><td><span class="score s-med">Medium</span></td><td><span class="score s-low">Low</span></td><td><span class="score s-unknown">Unknown</span></td></tr>
+            <tr><th>Preventive brain health clinics</th><td><span class="score s-med">Medium</span></td><td><span class="score s-low">Low</span></td><td><span class="score s-med">Medium</span></td><td><span class="score s-low">Low</span></td><td><span class="score s-med">Medium</span></td><td><span class="score s-med">Medium</span></td><td><span class="score s-unknown">Unknown</span></td></tr>
+            <tr><th>Consumer indoor air quality</th><td><span class="score s-med">Medium</span></td><td><span class="score s-med">Medium</span></td><td><span class="score s-high">High</span></td><td><span class="score s-high">High</span></td><td><span class="score s-med">Medium</span></td><td><span class="score s-high">High</span></td><td><span class="score s-high">High</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="matrix-key">
+        <span><span class="swatch" style="background:var(--sage-bg);"></span> High</span>
+        <span><span class="swatch" style="background:var(--slate-bg);"></span> Medium</span>
+        <span><span class="swatch" style="background:var(--clay-bg);"></span> Low</span>
+        <span><span class="swatch" style="background:#ece3d6;"></span> Unknown</span>
+      </div>
+      <p class="narrow" style="margin-top:26px; color:var(--ink-soft);">The strongest first use cases are likely occupational exposure or consumer indoor air quality, because they allow faster measurement without making disease claims. Childhood exposure and neurodegenerative risk may be higher-impact long-term directions, but they need more careful study and stronger partners.</p>
+    </div>
+  </section>
 </section>
 
-<section id="olfaction">
-  <div class="wrap">
-    <div class="sec-head">
-      <div class="left">
-        <p class="eyebrow">The neuroscience side</p>
-        <h2 class="serif">Olfaction as an interface</h2>
-        <p class="dek">What makes smell unusual is its wiring. Most senses are relayed through the thalamus before they reach awareness. Olfaction has a faster, more direct route into limbic structures, which is part of why an odour can shift affect before it is consciously named. Reading the chemical air is a way to study that mapping.</p>
+<!-- ===================== ANIMAL WELFARE ===================== -->
+<section class="domain-panel dh-animal" id="animal-welfare" role="tabpanel" aria-label="Animal welfare">
+  <div class="domain-head">
+    <div class="wrap">
+      <div class="dh-left">
+        <p class="dh-kick"><span class="dot"></span>Domain two · sensing and minds</p>
+        <h2 class="dh-title serif">Animal welfare</h2>
+        <p class="dh-claim">Detect distress and illness earlier, without restraint or invasive monitoring, and read the pre-verbal state animals already broadcast in chemistry. Sensing and brain-computer interfaces sit side by side here as two pillars of the same question.</p>
       </div>
-      <span class="idx">06</span>
+      <span class="dh-idx serif">02</span>
     </div>
-
-    <div class="figwrap">
-      <figure>
-        <svg viewBox="0 0 940 300" role="img" aria-label="Olfactory intelligence pathways: a slow conscious route and a fast olfactory route">
-          <defs>
-            <marker id="pSlate" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 Z" fill="#5d7280"/></marker>
-            <marker id="pClay" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 Z" fill="#bd7a2a"/></marker>
-          </defs>
-          <style>
-            .pbS { fill:#e2e8ec; stroke:#5d7280; stroke-width:1.2; }
-            .pbC { fill:#f3e6cd; stroke:#bd7a2a; stroke-width:1.2; }
-            .pbL { fill:#efe5d4; stroke:#8a6f57; stroke-width:1.2; }
-            .ptl { font-family:"Helvetica Neue",Arial,sans-serif; font-size:13px; fill:#211c10; font-weight:600; }
-            .psl { font-family:"Helvetica Neue",Arial,sans-serif; font-size:10.5px; fill:#8c7f63; }
-            .prt { font-family:"Helvetica Neue",Arial,sans-serif; font-size:10.5px; letter-spacing:0.12em; font-weight:700; text-transform:uppercase; }
-          </style>
-
-          <text x="6" y="24" class="prt" fill="#5d7280">Conscious perception · slow</text>
-          <rect class="pbS" x="6" y="36" width="180" height="58" rx="4"/>
-          <text x="20" y="62" class="ptl">Sensory input</text>
-          <text x="20" y="80" class="psl">eye, ear, skin</text>
-          <path d="M186,65 H214" stroke="#5d7280" stroke-width="1.5" marker-end="url(#pSlate)"/>
-          <rect class="pbS" x="214" y="36" width="170" height="58" rx="4"/>
-          <text x="228" y="62" class="ptl">Thalamus</text>
-          <text x="228" y="80" class="psl">relay and gating</text>
-          <path d="M384,65 H412" stroke="#5d7280" stroke-width="1.5" marker-end="url(#pSlate)"/>
-          <rect class="pbS" x="412" y="36" width="170" height="58" rx="4"/>
-          <text x="426" y="62" class="ptl">Cortex</text>
-          <text x="426" y="80" class="psl">conscious perception</text>
-          <path d="M582,65 H610" stroke="#5d7280" stroke-width="1.5" marker-end="url(#pSlate)"/>
-          <rect class="pbL" x="610" y="36" width="180" height="58" rx="4"/>
-          <text x="624" y="62" class="ptl">Limbic system</text>
-          <text x="624" y="80" class="psl">emotion, memory, decision</text>
-
-          <text x="6" y="160" class="prt" fill="#bd7a2a">Olfactory pathway · fast</text>
-          <rect class="pbC" x="6" y="172" width="180" height="58" rx="4"/>
-          <text x="20" y="198" class="ptl">Odour molecules</text>
-          <text x="20" y="216" class="psl">olfactory epithelium</text>
-          <path d="M186,201 H214" stroke="#bd7a2a" stroke-width="1.5" marker-end="url(#pClay)"/>
-          <rect class="pbC" x="214" y="172" width="170" height="58" rx="4"/>
-          <text x="228" y="198" class="ptl">Olfactory bulb</text>
-          <text x="228" y="216" class="psl">first processing</text>
-          <path d="M384,201 H412" stroke="#bd7a2a" stroke-width="1.5" marker-end="url(#pClay)"/>
-          <rect class="pbL" x="412" y="172" width="180" height="58" rx="4"/>
-          <text x="426" y="195" class="ptl">Limbic system</text>
-          <text x="426" y="212" class="psl">amygdala, piriform,</text>
-          <text x="426" y="226" class="psl">entorhinal cortex</text>
-          <path d="M592,201 H620" stroke="#bd7a2a" stroke-width="1.5" marker-end="url(#pClay)"/>
-          <text x="628" y="190" class="psl">Affect, memory, threat</text>
-          <text x="628" y="206" class="psl">reached before the smell</text>
-          <text x="628" y="222" class="psl">is consciously named.</text>
-
-          <line x1="6" y1="128" x2="934" y2="128" stroke="#f0e9d4" stroke-width="1"/>
-        </svg>
-        <figcaption><b>Figure 4.</b> A slower route carries most senses through the thalamus to cortex before they reach limbic structures. Odours take a more direct path through the olfactory bulb into the amygdala and nearby regions, which can change affect and arousal ahead of conscious naming. Canary's interest is in reading the chemical input to that fast route, not in stimulating it.</figcaption>
-      </figure>
-    </div>
-
-    <p class="narrow" style="margin-top:34px; color:var(--ink-soft);">On the research side, the longer aim is a model that takes the chemical reading together with simple context, such as scene and stated intent, and infers a person's likely state. That is a way to ask how much of affect and arousal is predictable from the air at the nose. It stays on the reading side of the problem. No odour is delivered, and no clinical state is diagnosed.</p>
   </div>
+
+  <section class="block bt">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="left">
+          <p class="eyebrow">Why animals first show it in chemistry</p>
+          <h2 class="serif">The signal before the symptom</h2>
+          <p class="dek">Animals often signal distress, illness, fear, pain, and social stress chemically and bodily long before any of it is visible in behaviour. Welfare is usually judged by what we can see, so suffering tends to be caught late. Reading the chemical layer could move that detection earlier, without restraint, blood tests, implants, or handling that is itself stressful.</p>
+        </div>
+      </div>
+      <div class="two-col">
+        <div class="panel">
+          <p class="pk"><span class="dot" style="background:var(--sage);"></span>The welfare opportunity</p>
+          <h3 class="serif">Earlier, and hands-off</h3>
+          <p>A chemical reading does not need the animal to perform a behaviour, hold still, or be sampled. It can run in the background of an enclosure or near the muzzle. That makes it suited to settings where handling is hard, rare, or harmful, and where a daily visual check misses the early hours of a problem.</p>
+          <p>The strongest claim is plain: chemical sensing may let us detect suffering earlier than visual observation, before it becomes obvious.</p>
+        </div>
+        <div class="panel">
+          <p class="pk"><span class="dot" style="background:var(--slate);"></span>The deeper question</p>
+          <h3 class="serif">Reading the wrong signals</h3>
+          <p>Consciousness in animals is often judged through human-like behaviour. Many species may express meaningful internal states chemically, socially, and bodily rather than in anything that looks like language.</p>
+          <p>If that is true, we may be missing part of animal mind because we are reading the wrong channel. Pairing chemical sensing with brain-computer interfaces is a way to test how much internal state is legible once we stop relying on behaviour alone.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block bt">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="left">
+          <p class="eyebrow">Pillar one</p>
+          <h2 class="serif">VOCs as welfare signals</h2>
+          <p class="dek">Bodies emit volatile organic compounds, and the mix shifts with internal state. In animals that can mean pain, fear, distress, social tension, reproductive state, or early illness. Trained dogs already detect disease odours in humans, which is direct evidence that these signals carry usable information; the aim here is to read a useful part of them with sensors instead.</p>
+        </div>
+      </div>
+      <p style="color:var(--ink-soft); max-width:680px;">States that have been linked to changes in emitted volatile signals or body chemistry:</p>
+      <div class="chips sage">
+        <span>Acute stress</span><span>Fear</span><span>Pain</span><span>Inflammation</span><span>Infection</span>
+        <span>Metabolic change</span><span>Reproductive state</span><span>Social tension</span><span>Early illness</span>
+      </div>
+      <p class="note sage"><b>What this is and is not.</b> The aim is to read welfare-relevant change in the chemical signal, not to diagnose a named disease in an animal. The disease-odour literature is cited as evidence that volatile signals carry internal-state information, not as a claim that this device identifies specific conditions.</p>
+    </div>
+  </section>
+
+  <section class="block bt">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="left">
+          <p class="eyebrow">Pillar one, applied</p>
+          <h2 class="serif">Near-nose sensing for animals</h2>
+          <p class="dek">The same sensing logic as the human platform, repositioned to an animal's breathing zone or to the air of its enclosure. No electronics go inside the animal, and no restraint is required. The reading is compared against the ambient air of the space, the same near versus room logic used on the human side.</p>
+        </div>
+      </div>
+      <div class="compare">
+        <div class="item">
+          <p class="dist">enclosure air</p>
+          <h3 class="serif">Housing &amp; labs</h3>
+          <p>A sensing pod on a cage or pen tracks the chemical baseline of a group and flags drift, including social stress in group-housed animals.</p>
+        </div>
+        <div class="item">
+          <p class="dist">transport &amp; shelter</p>
+          <h3 class="serif">Movement &amp; intake</h3>
+          <p>Transport and shelter intake are high-stress, high-illness moments. Continuous chemical readings could catch trouble between the scheduled checks.</p>
+        </div>
+        <div class="item near" style="box-shadow: inset 3px 0 0 var(--sage);">
+          <p class="dist">near the muzzle</p>
+          <h3 class="serif">Veterinary &amp; sanctuary</h3>
+          <p>A near-muzzle reading aims at one animal's breathing zone, for closer monitoring of pain or illness without sedation or handling.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block bt">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="left">
+          <p class="eyebrow">Pillar two</p>
+          <h2 class="serif">BCIs and pre-verbal state</h2>
+          <p class="dek">Brain-computer interfaces give a second window onto internal state. Read together with the chemical signal and with behaviour, and tracked over time, they let us ask what an animal is in rather than only what it is doing. The target is pre-verbal meaning: the units of state an animal acts on before anything that resembles language.</p>
+        </div>
+      </div>
+      <div class="figwrap">
+        <figure>
+          <svg viewBox="0 0 940 300" role="img" aria-label="Reading animal internal state by fusing chemical, neural, and behavioural signals">
+            <defs>
+              <marker id="anClay" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 Z" fill="#bd7a2a"/></marker>
+              <marker id="anSlate" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 Z" fill="#5d7280"/></marker>
+              <marker id="anPlum" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 Z" fill="#8a6f57"/></marker>
+              <marker id="anSage" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 Z" fill="#7c854a"/></marker>
+            </defs>
+            <rect x="16" y="34" width="214" height="56" rx="4" fill="#f3e6cd" stroke="#bd7a2a" stroke-width="1.2"/>
+            <text x="32" y="58" class="tl">Volatile signals</text>
+            <text x="32" y="76" class="sl">VOCs the body emits, hands-off</text>
+            <rect x="16" y="118" width="214" height="56" rx="4" fill="#e2e8ec" stroke="#5d7280" stroke-width="1.2"/>
+            <text x="32" y="142" class="tl">Neural signal</text>
+            <text x="32" y="160" class="sl">BCI, least-invasive route first</text>
+            <rect x="16" y="202" width="214" height="56" rx="4" fill="#efe5d4" stroke="#8a6f57" stroke-width="1.2"/>
+            <text x="32" y="226" class="tl">Behaviour</text>
+            <text x="32" y="244" class="sl">posture, movement, vocal cues</text>
+            <path d="M230,62 C320,62 340,140 432,146" stroke="#bd7a2a" stroke-width="1.6" fill="none" marker-end="url(#anClay)"/>
+            <path d="M230,146 H432" stroke="#5d7280" stroke-width="1.6" fill="none" marker-end="url(#anSlate)"/>
+            <path d="M230,230 C320,230 340,156 432,150" stroke="#8a6f57" stroke-width="1.6" fill="none" marker-end="url(#anPlum)"/>
+            <rect x="434" y="108" width="190" height="80" rx="4" fill="#faf5e6" stroke="#211c10" stroke-width="1.3"/>
+            <text x="529" y="142" class="tl" text-anchor="middle">State inference</text>
+            <text x="529" y="160" class="sl" text-anchor="middle">fused and tracked over time</text>
+            <path d="M624,148 H690" stroke="#7c854a" stroke-width="1.8" fill="none" marker-end="url(#anSage)"/>
+            <rect x="692" y="70" width="232" height="156" rx="4" fill="#ecead4" stroke="#7c854a" stroke-width="1.2"/>
+            <text x="710" y="96" class="tl" fill="#5a632f">Pre-verbal state</text>
+            <text x="710" y="122" class="sl">I am afraid</text>
+            <text x="710" y="142" class="sl">I am sick</text>
+            <text x="710" y="162" class="sl">I am stressed</text>
+            <text x="710" y="182" class="sl">I am safe</text>
+            <text x="710" y="202" class="sl">I recognise you · I need care</text>
+          </svg>
+          <figcaption><b>Figure 5.</b> Volatile signals, neural recordings from a brain-computer interface, and behaviour are read together and tracked over time to infer internal state. The target is pre-verbal information such as fear, sickness, social receptivity, or recognition. This is state detection, not a translation of animal language into human words.</figcaption>
+        </figure>
+      </div>
+      <p class="narrow" style="margin-top:30px; color:var(--ink-soft);">Read this way, interspecies communication becomes a tractable question. Not full translation, and not animal speech as human words, but detecting state, intent, stress, recognition, and social meaning from the signals animals already use. That could change how we study animals, how we care for them, and how we weigh their minds.</p>
+    </div>
+  </section>
+
+  <section class="block bt">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="left">
+          <p class="eyebrow">Where it applies</p>
+          <h2 class="serif">Settings</h2>
+        </div>
+      </div>
+      <div class="two-col">
+        <div class="panel">
+          <h3 class="serif">Care and housing</h3>
+          <ul class="clean sage">
+            <li>Shelters, at intake and during stays</li>
+            <li>Veterinary monitoring without sedation</li>
+            <li>Sanctuaries and group-housed animals</li>
+            <li>Farms and livestock housing</li>
+          </ul>
+        </div>
+        <div class="panel">
+          <h3 class="serif">Movement and research</h3>
+          <ul class="clean sage">
+            <li>Transport and handling windows</li>
+            <li>Laboratory animal welfare</li>
+            <li>Detecting social stress in groups</li>
+            <li>Early-illness flags before visible signs</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
 </section>
 
-<section id="pilot">
-  <div class="wrap">
-    <div class="sec-head">
-      <div class="left">
-        <p class="eyebrow">Experiment one</p>
-        <h2 class="serif">The first pilot</h2>
-        <p class="dek">The first experiment places the three sensor positions side by side under safe indoor-air conditions and asks whether the near-nose reading differs from the room and purifier readings, and whether those differences track what people report.</p>
+<!-- ===================== AI SAFETY ===================== -->
+<section class="domain-panel dh-ai" id="ai-safety" role="tabpanel" aria-label="AI safety">
+  <div class="domain-head">
+    <div class="wrap">
+      <div class="dh-left">
+        <p class="dh-kick"><span class="dot"></span>Domain three · a missing sense</p>
+        <h2 class="dh-title serif">AI safety</h2>
+        <p class="dh-claim">Give AI a sense of smell. Most systems sense vision, sound, text, and reward, and stay blind to the chemical world. A chemical state channel could let embodied AI read danger and internal state it currently cannot see.</p>
       </div>
-      <span class="idx">07</span>
+      <span class="dh-idx serif">03</span>
     </div>
-    <div class="pilot-grid">
-      <div class="panel">
-        <h3 class="serif">Conditions compared</h3>
-        <ul class="clean conditions">
-          <li>Room-level air sensor</li>
-          <li>Consumer air purifier or fan readout</li>
-          <li>Near-nose sensor reading</li>
-          <li>Filtered condition</li>
-          <li>Unfiltered condition</li>
-        </ul>
-      </div>
-      <div class="panel">
-        <h3 class="serif">Basic readouts</h3>
-        <ul class="clean">
-          <li>Breathing comfort</li>
-          <li>Irritation</li>
-          <li>Headache</li>
-          <li>Fatigue</li>
-          <li>Smell test</li>
-          <li>Short attention task</li>
-          <li>Possibly simple non-invasive physiology</li>
-        </ul>
-      </div>
-    </div>
-    <p class="note"><b>No deliberate exposure.</b> The pilot does not expose people to harmful air on purpose. It tests the device under safe indoor-air conditions and compares readings across sensor positions. Any difference between filtered and unfiltered conditions comes from ordinary indoor air, not from introduced pollutants.</p>
   </div>
+
+  <section class="block bt">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="left">
+          <p class="eyebrow">The gap</p>
+          <h2 class="serif">The missing channel</h2>
+          <p class="dek">Most AI learns from what is visible: images, text, audio, and reward signals. It infers internal and environmental state from surface behaviour, which can be shallow. Real animals and humans live in a chemical world. Smoke, infection, decay, fear, stress, food, and danger all have chemical signatures, and robots sense airborne chemistry far worse than they sense vision and sound.</p>
+        </div>
+      </div>
+      <div class="figwrap">
+        <figure>
+          <svg viewBox="0 0 940 290" role="img" aria-label="Olfaction as an added sensory channel feeding an embodied model and its actions">
+            <defs>
+              <marker id="aiSlate" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 Z" fill="#5d7280"/></marker>
+              <marker id="aiClay" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 Z" fill="#bd7a2a"/></marker>
+              <marker id="aiSage" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 Z" fill="#7c854a"/></marker>
+            </defs>
+            <text x="16" y="26" class="prt sl" style="letter-spacing:0.12em; font-weight:700;">Senses in</text>
+            <rect x="16" y="38" width="206" height="50" rx="4" fill="#e2e8ec" stroke="#5d7280" stroke-width="1.2"/>
+            <text x="32" y="60" class="tl">Vision</text>
+            <text x="32" y="77" class="sl">cameras, depth</text>
+            <rect x="16" y="100" width="206" height="50" rx="4" fill="#e2e8ec" stroke="#5d7280" stroke-width="1.2"/>
+            <text x="32" y="122" class="tl">Sound</text>
+            <text x="32" y="139" class="sl">microphones</text>
+            <rect x="16" y="162" width="206" height="66" rx="4" fill="#f3e6cd" stroke="#bd7a2a" stroke-width="1.6"/>
+            <text x="32" y="186" class="tl" fill="#bd7a2a">Olfaction</text>
+            <text x="32" y="203" class="sl">chemical air · the missing channel</text>
+            <text x="32" y="219" class="sl">smoke · gas · decay · illness</text>
+            <path d="M222,63 C320,63 360,128 452,140" stroke="#5d7280" stroke-width="1.5" fill="none" marker-end="url(#aiSlate)"/>
+            <path d="M222,125 H452" stroke="#5d7280" stroke-width="1.5" fill="none" marker-end="url(#aiSlate)"/>
+            <path d="M222,195 C320,195 360,160 452,150" stroke="#bd7a2a" stroke-width="1.8" fill="none" marker-end="url(#aiClay)"/>
+            <rect x="454" y="104" width="208" height="82" rx="4" fill="#faf5e6" stroke="#211c10" stroke-width="1.3"/>
+            <text x="558" y="138" class="tl" text-anchor="middle">Embodied model</text>
+            <text x="558" y="156" class="sl" text-anchor="middle">fuses senses into a state estimate</text>
+            <path d="M662,145 H728" stroke="#7c854a" stroke-width="1.8" fill="none" marker-end="url(#aiSage)"/>
+            <rect x="730" y="108" width="194" height="74" rx="4" fill="#ecead4" stroke="#7c854a" stroke-width="1.2"/>
+            <text x="827" y="140" class="tl" text-anchor="middle">Action</text>
+            <text x="827" y="158" class="sl" text-anchor="middle">avoid, alert, adapt</text>
+            <text x="16" y="262" class="sl">Vision and sound are the channels embodied systems already have. Olfaction is the one they mostly lack.</text>
+          </svg>
+          <figcaption><b>Figure 6.</b> Most embodied systems estimate state from vision and sound. Adding an olfactory channel gives the model chemical evidence of smoke, gas, decay, or illness, which it can fold into how it estimates state and chooses an action. The claim is a new input channel, not a new objective.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="block bt">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="left">
+          <p class="eyebrow">What it adds</p>
+          <h2 class="serif">State a camera cannot see</h2>
+          <p class="dek">A chemical channel reports on conditions that vision and audio miss entirely or catch late. For an embodied system, that is the difference between modelling context and guessing it from appearance.</p>
+        </div>
+      </div>
+      <p style="color:var(--ink-soft); max-width:680px;">Signals a chemical channel could surface:</p>
+      <div class="chips slate">
+        <span>Smoke</span><span>Gas leak</span><span>Decay</span><span>Contamination</span><span>Illness</span>
+        <span>Spoiled food</span><span>Chemical threat</span><span>Air quality</span><span>Stress markers</span>
+      </div>
+      <div class="two-col" style="margin-top:14px;">
+        <div class="panel">
+          <p class="pk"><span class="dot" style="background:var(--slate);"></span>Context, not appearance</p>
+          <h3 class="serif">Modelling the room</h3>
+          <p>A system that smells smoke before it sees flame, or detects a gas leak with no visual cue, is modelling the environment rather than predicting it from surfaces. That is a more grounded basis for a safe action.</p>
+        </div>
+        <div class="panel">
+          <p class="pk"><span class="dot" style="background:var(--slate);"></span>Robotics</p>
+          <h3 class="serif">Where bodies meet air</h3>
+          <p>Robots already carry vision and sound. Olfactory sensors extend them to inspection, hazard detection, and search-and-rescue, where the decisive signal is often in the air rather than in the frame.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block bt">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="left">
+          <p class="eyebrow">The model</p>
+          <h2 class="serif">Olfaction, vision, action</h2>
+          <p class="dek">The research direction is a model that reads the chemical signal together with the scene and the task, and uses it to choose what to do. The near-nose platform is the sensor that produces the chemical half of that input, the same instrument used in the other two domains.</p>
+        </div>
+      </div>
+      <p class="note slate"><b>Scope, stated plainly.</b> This does not claim to solve AI safety. It tests one thing: whether hidden biological and environmental state can be measured and used by AI systems. The strongest claim is that olfaction could become a missing state channel for safer embodied AI.</p>
+    </div>
+  </section>
 </section>
 
-<section id="usecases">
-  <div class="wrap">
-    <div class="sec-head">
-      <div class="left">
-        <p class="eyebrow">Use-case selection</p>
-        <h2 class="serif">Choosing a first use case</h2>
-        <p class="dek">The matrix scores candidate directions on the factors that decide whether a use case is worth starting with. Scores are qualitative and provisional, meant to order the options rather than grade them precisely.</p>
-      </div>
-      <span class="idx">08</span>
-    </div>
-    <div class="table-scroll">
-      <table class="matrix">
-        <thead>
-          <tr>
-            <th style="text-align:left;">Use case</th>
-            <th>Health<br>burden</th>
-            <th>Evidence<br>strength</th>
-            <th>Ease of<br>measurement</th>
-            <th>Time to<br>signal</th>
-            <th>Need for<br>near-nose</th>
-            <th>Ethical<br>feasibility</th>
-            <th>Deployment<br>pull</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th>Occupational exposure</th>
-            <td><span class="score s-high">High</span></td><td><span class="score s-med">Medium</span></td><td><span class="score s-high">High</span></td><td><span class="score s-high">High</span></td><td><span class="score s-high">High</span></td><td><span class="score s-high">High</span></td><td><span class="score s-high">High</span></td>
-          </tr>
-          <tr>
-            <th>Inner-city childhood exposure</th>
-            <td><span class="score s-high">High</span></td><td><span class="score s-med">Medium</span></td><td><span class="score s-low">Low</span></td><td><span class="score s-low">Low</span></td><td><span class="score s-high">High</span></td><td><span class="score s-low">Low</span></td><td><span class="score s-med">Medium</span></td>
-          </tr>
-          <tr>
-            <th>Asthma &amp; inflammatory conditions</th>
-            <td><span class="score s-high">High</span></td><td><span class="score s-med">Medium</span></td><td><span class="score s-med">Medium</span></td><td><span class="score s-med">Medium</span></td><td><span class="score s-high">High</span></td><td><span class="score s-med">Medium</span></td><td><span class="score s-med">Medium</span></td>
-          </tr>
-          <tr>
-            <th>Neurodegenerative risk</th>
-            <td><span class="score s-high">High</span></td><td><span class="score s-low">Low</span></td><td><span class="score s-low">Low</span></td><td><span class="score s-low">Low</span></td><td><span class="score s-med">Medium</span></td><td><span class="score s-low">Low</span></td><td><span class="score s-unknown">Unknown</span></td>
-          </tr>
-          <tr>
-            <th>Preventive brain health clinics</th>
-            <td><span class="score s-med">Medium</span></td><td><span class="score s-low">Low</span></td><td><span class="score s-med">Medium</span></td><td><span class="score s-low">Low</span></td><td><span class="score s-med">Medium</span></td><td><span class="score s-med">Medium</span></td><td><span class="score s-unknown">Unknown</span></td>
-          </tr>
-          <tr>
-            <th>Consumer indoor air quality</th>
-            <td><span class="score s-med">Medium</span></td><td><span class="score s-med">Medium</span></td><td><span class="score s-high">High</span></td><td><span class="score s-high">High</span></td><td><span class="score s-med">Medium</span></td><td><span class="score s-high">High</span></td><td><span class="score s-high">High</span></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="matrix-key">
-      <span><span class="swatch" style="background:var(--sage-bg);"></span> High</span>
-      <span><span class="swatch" style="background:var(--slate-bg);"></span> Medium</span>
-      <span><span class="swatch" style="background:var(--clay-bg);"></span> Low</span>
-      <span><span class="swatch" style="background:#ece3d6;"></span> Unknown</span>
-    </div>
-    <p class="narrow" style="margin-top:26px; color:var(--ink-soft);">The strongest first use cases are likely occupational exposure or consumer indoor air quality, because they allow faster measurement without making disease claims. Childhood exposure and neurodegenerative risk may be higher-impact long-term directions, but they need more careful study and stronger partners.</p>
-  </div>
-</section>
+</div><!-- /#panels -->
 
-<section id="references">
+<!-- ===================== REFERENCES ===================== -->
+<section class="refs" id="references">
   <div class="wrap narrow">
     <div class="sec-head">
       <div class="left">
         <p class="eyebrow">Sources</p>
         <h2 class="serif">References</h2>
       </div>
-      <span class="idx">09</span>
+      <span class="idx">REF</span>
     </div>
 
     <p class="ref-group-title">Air pollution and brain health</p>
@@ -956,8 +1110,8 @@
       <li>Devanand DP. Olfactory identification deficits, cognitive decline, and dementia in older adults. <i>American Journal of Geriatric Psychiatry</i>, 2016.</li>
     </ol>
 
-    <p class="ref-group-title">Disease-related changes in volatile signatures</p>
-    <div class="ref-caveat">The following papers are cited only to support the idea that disease states may alter the volatile signals a body emits. They do not imply that this device can diagnose Parkinson's disease or any other condition. No diagnostic claim is made.</div>
+    <p class="ref-group-title">Animal chemical signals and detection</p>
+    <div class="ref-caveat">The following papers are cited to support the idea that internal and disease states alter the volatile signals a body emits, and that these signals carry usable information. They do not imply that this device diagnoses any condition in animals or humans. No diagnostic claim is made.</div>
     <ol class="refs-list" start="28">
       <li>Sensitivity of sniffer dogs for a diagnosis of Parkinson's disease. <i>Movement Disorders</i>, 2022.</li>
       <li>From small to tall: breed-varied household pet dogs can be trained to detect Parkinson's disease. <i>Animal Cognition</i>, 2024.</li>
@@ -972,10 +1126,51 @@
   <div class="wrap">
     <div class="f-inner">
       <span class="f-brand serif">Canary Labs</span>
-      <p>Near-Nose Sensing for Harmful Air Exposure. An early feasibility project: a concept note for prototyping and pilot work. No disease diagnosis claims are made, and no odour is delivered.<br><br>Images via Wikimedia Commons: yellow canary (<em>Crithagra flaviventris</em>) by Timothy Whitehead, CC BY 4.0; São Paulo air pollution by Wilfredor, CC0; London Underground by Josh Wilburne, CC0; HEPA and carbon filter by Home Air Quality Guides, CC BY-SA 2.0.</p>
+      <p>Olfaction as a hidden-state interface, across global health, animal welfare, and AI safety. An early feasibility programme: a concept note for prototyping and pilot work. No disease diagnosis claims are made, and no odour is delivered.<br><br>Images via Wikimedia Commons: yellow canary (<em>Crithagra flaviventris</em>) by Timothy Whitehead, CC BY 4.0; São Paulo air pollution by Wilfredor, CC0; London Underground by Josh Wilburne, CC0; HEPA and carbon filter by Home Air Quality Guides, CC BY-SA 2.0.</p>
     </div>
   </div>
 </footer>
+
+<script>
+(function(){
+  var domains = ['global-health','animal-welfare','ai-safety'];
+  function show(id, scroll){
+    var hub = domains.indexOf(id) < 0;
+    document.body.classList.toggle('is-hub', hub);
+    domains.forEach(function(d){
+      var p = document.getElementById(d);
+      if (p) p.classList.toggle('is-active', d === id);
+    });
+    document.querySelectorAll('[data-target]').forEach(function(el){
+      var on = el.getAttribute('data-target') === id;
+      el.classList.toggle('is-active', on);
+      if (el.getAttribute('role') === 'tab') el.setAttribute('aria-selected', on ? 'true' : 'false');
+    });
+    if (!hub && ('#' + id) !== location.hash) { history.replaceState(null, '', '#' + id); }
+    if (hub && location.hash) { history.replaceState(null, '', location.pathname); }
+    if (scroll) {
+      if (hub) {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        var anchor = document.getElementById('panels');
+        if (anchor) window.scrollTo({ top: anchor.offsetTop - 64, behavior: 'smooth' });
+      }
+    }
+  }
+  document.addEventListener('click', function(e){
+    var t = e.target.closest('[data-target]');
+    if (!t) return;
+    e.preventDefault();
+    show(t.getAttribute('data-target'), true);
+  });
+  window.addEventListener('hashchange', function(){
+    var id = location.hash.slice(1);
+    show(domains.indexOf(id) >= 0 ? id : 'hub', false);
+  });
+  var start = location.hash.slice(1);
+  show(domains.indexOf(start) >= 0 ? start : 'hub', false);
+})();
+</script>
 
 </body>
 </html>
