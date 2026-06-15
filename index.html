@@ -150,6 +150,10 @@
     line-height: 1.5;
   }
   .hero p.body { max-width: 620px; color: var(--ink-soft); font-size: 17px; }
+  .hero-inner { display: flex; align-items: center; gap: clamp(34px, 6vw, 84px); }
+  .hero-copy { flex: 1 1 auto; min-width: 0; }
+  .hero-figure { flex: 0 0 auto; width: clamp(210px, 27vw, 350px); margin: 0; }
+  .hero-figure img { width: 100%; height: auto; display: block; }
   .hero .coal {
     margin-top: 26px;
     font-size: 14.5px;
@@ -343,6 +347,8 @@
     .stat-row { gap: 30px; }
     section { padding: 60px 0; }
     .hero { padding: 64px 0 54px; }
+    .hero-inner { flex-direction: column-reverse; align-items: flex-start; gap: 30px; }
+    .hero-figure { width: 156px; }
     .wrap { padding: 0 24px; }
   }
 </style>
@@ -371,7 +377,8 @@
 </header>
 
 <section class="hero" style="border-top:none;">
-  <div class="wrap">
+  <div class="wrap hero-inner">
+    <div class="hero-copy">
     <p class="kicker">Neuroscience-led · Early feasibility project</p>
     <h1 class="serif">Canary <em>Labs</em></h1>
     <p class="full-title">Near-Nose Sensing for Harmful Air Exposure</p>
@@ -383,6 +390,10 @@
       <span class="tag t2">Personal exposure sensing</span>
       <span class="tag t3">Low-cost filtration prototype</span>
     </div>
+    </div>
+    <figure class="hero-figure">
+      <img src="canary_assets/canary-mark.png" alt="Canary Labs bird mark">
+    </figure>
   </div>
 </section>
 
